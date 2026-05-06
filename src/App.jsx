@@ -4,13 +4,41 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 import { get } from "./services/api";
+import useModal from "./hooks/useModal";
+import { AddEventModal } from "./components/AddEventModal";
+
+function AddEventContainerPlaceholder() {
+  const { isOpen, open: openModal, close: closeModal } = useModal(false);
+  const onClickAddEvent = () => {
+    openModal();
+  };
+
+  const onClickCloseModal = () => {
+    console.log(closeModal);
+
+    closeModal();
+  };
+
+  console.log(isOpen);
+
+  return (
+    <>
+      <AddEventModal isOpen={isOpen} onClose={onClickCloseModal} />
+      <p>Placeholder para contenedor de Add Event</p>
+
+      <button type="button" className="counter" onClick={onClickAddEvent}>
+        Agregar Evento
+      </button>
+    </>
+  );
+}
 
 function App() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log('a');
-    
+    console.log("a");
+
     get("/events").then(console.log);
   }, []);
 
@@ -35,6 +63,7 @@ function App() {
         >
           Count is {count}
         </button>
+        <AddEventContainerPlaceholder />
       </section>
 
       <div className="ticks"></div>
