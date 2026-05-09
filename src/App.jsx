@@ -1,12 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 import meses from './mes/meses'
-import Mes from './mes/mesData'
+import Mes from './mes/Calendario' // archivo renombrado a calendario.jsx
 
-const mesData = [
+
+const mesesPropiedades = [
     { id: 0, nombre: 'Mes 0', mes: 0 },
     { id: 1, nombre: 'Mes 1', mes: 1 },
     { id: 2, nombre: 'Mes 2', mes: 2 },
@@ -27,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <h1>Calendario</h1>
-      <Mes mes={mesData} />
+      <Mes mes={mesesPropiedades} />
     </div>
   )
 

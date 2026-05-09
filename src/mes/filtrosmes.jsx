@@ -1,4 +1,5 @@
 
+// botones para filtrar el mes 
 export default function FiltroMes({setFiltro}) {
     const [mesFiltrado, setMesFiltrado] = useState(1);
     return(

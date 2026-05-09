@@ -1,5 +1,7 @@
 import react from 'react';
 
+
+// array con los meses
 const meses = [
     'Enero',
     'Febrero',
