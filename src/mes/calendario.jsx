@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import meses from './meses';
+import '../Mes.css' // cambiar por mes.css
+import { mesesPropiedades } from './meses';
 
 // muestra el calendario con los meses y los botones para filtrar el mes
 export default function Mes({mes=[]}){
@@ -22,19 +23,23 @@ export default function Mes({mes=[]}){
     return (
         <div className= "mes">
             <header className="encabezado">
+                
                 <div className="meses">
-                    <button onClick={mesAnterior}>Mes Anterior</button>
+
+                    <button className="mes-anterior" onClick={mesAnterior}>Mes Anterior</button>
                     
-                    <button onClick={mesActual}>Mes Actual</button>
+                    <button className="mes-actual" onClick={mesActual}>Mes Actual</button>
                     
-                    <button onClick={mesSiguiente}>Mes Siguiente</button>
-                    <h2 className='mes-filtrado'>{meses[mesFiltrado]}</h2>
+                    <button className="mes-siguiente" onClick={mesSiguiente}>Mes Siguiente</button>
+            
                 </div>
                 {
                     <div className="filtro-mes">
+                        <h2 className='mes-filtrado'>{mesesPropiedades[mesFiltrado].nombre}</h2>
                         {mesesFiltrados.map(item => (
                             <div key={item.id}>
-                                <h3>{item.nombre}</h3>
+                                
+                                
                             </div>
                         ))}
                     </div>
