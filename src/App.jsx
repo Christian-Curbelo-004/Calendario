@@ -1,6 +1,7 @@
 import './App.css'
 import meses from './mes/meses'
 import Mes from './mes/Calendario' // archivo renombrado a calendario.jsx
+import Semana from './semana/Semana.jsx';
 
 
 const mesesPropiedades = [
@@ -25,6 +26,7 @@ function App() {
     <div className="App">
       <h1>Calendario</h1>
       <Mes mes={mesesPropiedades} />
+      <Semana />
     </div>
   )
 
