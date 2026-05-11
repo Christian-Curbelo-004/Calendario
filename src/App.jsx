@@ -1,5 +1,4 @@
 import './App.css'
-import Mes from './mes/calendario' // archivo renombrado a calendario.jsx
 import { mesesPropiedades } from './mes/meses';
 import { useEffect, useState } from "react";
 import "./App.css";
@@ -7,6 +6,9 @@ import { get } from "./services/api";
 import useModal from "./hooks/useModal";
 import { AddEventModal } from "./components/AddEventModal";
 import calendario from "./mes/calendario";
+import meses from './mes/meses'
+import Mes from './mes/Calendario' // archivo renombrado a calendario.jsx
+import Semana from './semana/Semana.jsx';
 
 function AddEventContainerPlaceholder() {
   const { isOpen, open: openModal, close: closeModal } = useModal(false);
@@ -36,11 +38,15 @@ function AddEventContainerPlaceholder() {
 
 function App() {
   return (
-    <div className="App">
+    <section>
+      <div className="App">
       <h1>Calendario</h1>
-      <Mes mes={mesesPropiedades} />
-  
+      {/* <Mes mes={mesesPropiedades} />  */}
+      <calendario/>
+     {/*  <Semana />  */}
     </div>
+    </section>
+    
   );
 }
 
