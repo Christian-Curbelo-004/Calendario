@@ -1,4 +1,5 @@
 import DiaSemana from "./DiaSemana.jsx";
+import { useState } from "react";
 
 export default function Semana(){
     const diasSemana = [
@@ -11,12 +12,12 @@ export default function Semana(){
         "Sabado"
     ];
 
-    const hoy = new Date();
-    const diaActual = hoy.getDay();
-    const inicioSemana = new Date(hoy);
+    const [fechaActual, setFechaActual] = useState(new Date());
+    const diaActual = fechaActual.getDay();
+    const inicioSemana = new Date(fechaActual);
     const diferencia = diaActual === 0 ? -6 : 1 - diaActual;
 
-    inicioSemana.setDate(hoy.getDate() + diferencia);
+    inicioSemana.setDate(fechaActual.getDate() + diferencia);
     
     const semana = [];
     
@@ -29,13 +30,43 @@ export default function Semana(){
         })
     }
 
+    function semanaAnterior(){
+        const nuevaFecha = new Date(fechaActual);
+        nuevaFecha.setDate(fechaActual.getDate() - 7);
+        setFechaActual(nuevaFecha);
+    }
+
+    function semanaSiguiente(){
+        const nuevaFecha = new Date(fechaActual);
+        nuevaFecha.setDate(fechaActual.getDate() + 7);
+        setFechaActual(nuevaFecha);
+    }
+
+    function semanaActual(){
+        setFechaActual(new Date());
+    }
+
     return (
-        <div className="semana">    
-            {
-                semana.map(dia => (
-                    <DiaSemana key={dia.nombre} dia={dia.nombre} fecha={dia.fecha}/>
-                ))
-            }
-        </div>
+        <>
+            <div className="controles-semana">
+                <button onClick={semanaAnterior}>
+                    Semana anterior
+                </button>
+                <button onClick={semanaActual}>
+                    Semana Actual
+                </button>
+                <button onClick={semanaSiguiente}>
+                    Semana siguiente
+                </button>
+            </div>
+            <div className="semana">    
+                {
+                    semana.map(dia => (
+                        <DiaSemana key={dia.nombre} dia={dia.nombre} fecha={dia.fecha}/>
+                    ))
+                }
+            </div>
+        </>
+        
     )
 }
