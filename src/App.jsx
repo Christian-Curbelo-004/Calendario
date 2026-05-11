@@ -1,13 +1,13 @@
 import './App.css'
-import { mesesPropiedades } from './mes/meses';
+import { mesesPropiedades } from './mes/Meses.jsx';
 import { useEffect, useState } from "react";
 import "./App.css";
 import { get } from "./services/api";
 import useModal from "./hooks/useModal";
 import { AddEventModal } from "./components/AddEventModal";
-import calendario from "./mes/calendario";
-import meses from './mes/meses'
-import Mes from './mes/Calendario' // archivo renombrado a calendario.jsx
+//import Calendario from "./mes/Calendario.jsx";
+import meses from './mes/Meses.jsx'
+import Mes from './mes/Calendario.jsx' // archivo renombrado a calendario.jsx
 import Semana from './semana/Semana.jsx';
 
 function AddEventContainerPlaceholder() {
@@ -38,11 +38,11 @@ function AddEventContainerPlaceholder() {
 
 function App() {
   return (
-    <section>
+    <section id='center'>
       <div className="App">
       <h1>Calendario</h1>
       {/* <Mes mes={mesesPropiedades} />  */}
-      <calendario/>
+      <Calendario/>
      {/*  <Semana />  */}
     </div>
     </section>

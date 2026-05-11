@@ -1,6 +1,25 @@
 // filtrar el dia 
-import { useState } from "react";
+export default function FiltroDia({
+    diaAnterior,
+    diaActual,
+    diaSiguiente
+}) {
 
-export default function FiltroDia({setFiltro}){
-    
+    return (
+        <div className="filtro-dia">
+
+            <button onClick={diaAnterior}>
+                Día anterior
+            </button>
+
+            <button onClick={diaActual}>
+                Día actual
+            </button>
+
+            <button onClick={diaSiguiente}>
+                Día siguiente
+            </button>
+
+        </div>
+    );
 }

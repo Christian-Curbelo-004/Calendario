@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import '../Mes.css' // cambiar por mes.css
-import { mesesPropiedades } from './meses';
+import "./Mes.css"; // cambiar por mes.css
+import { mesesPropiedades } from './Meses';
 
 // muestra el calendario con los meses y los botones para filtrar el mes
-export default function Mes({mes=[]}){
+export default function Calendario({mes=[]}){
     const [mesFiltrado, setMesFiltrado] = useState(new Date().getMonth());
     const mesesFiltrados = mes.filter(item => item.mes === mesFiltrado);
 
@@ -36,11 +36,16 @@ export default function Mes({mes=[]}){
                 {
                     <div className="filtro-mes">
                         <h2 className='mes-filtrado'>{mesesPropiedades[mesFiltrado].nombre}</h2>
+
+                        {/* --- CAMBIO MÍNIMO AQUÍ --- */}
+                    <div style={{marginTop: '20px', padding: '20px', border: '1px solid #ccc'}}>
+                        <p>Mes seleccionado: {mesesPropiedades[mesFiltrado].nombre}</p>
+                        <p>Para ver los días del mes, necesitas implementar la grilla de días.</p>
+                    </div>
+                    {/* --------------------------- */}
+
                         {mesesFiltrados.map(item => (
-                            <div key={item.id}>
-                                
-                                
-                            </div>
+                            <div key={item.id}>  </div>
                         ))}
                     </div>
                 }
