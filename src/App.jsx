@@ -7,6 +7,7 @@ import { get } from "./services/api";
 import useModal from "./hooks/useModal";
 import { AddEventModal } from "./components/AddEventModal";
 
+// esto deberia ser movido para otro lugar
 function AddEventContainerPlaceholder() {
   const { isOpen, open: openModal, close: closeModal } = useModal(false);
   const onClickAddEvent = () => {

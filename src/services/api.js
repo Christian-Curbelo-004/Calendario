@@ -18,10 +18,7 @@ async function fetchJSON(path, options) {
 }
 
 export async function get(path) {
-  console.log("aaaa");
-
   const res = await fetchJSON(path);
-  console.log("aaaa", res);
 
   return res;
 }

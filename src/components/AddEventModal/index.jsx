@@ -2,9 +2,11 @@ import Modal from "../Modal";
 import Input from "../Input";
 
 import "./AddEventModal.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import generateRandomHex from "../../utils/generateRandomHex";
+import saveEventService from "../../services/saveEvent";
 
-const FORM_INPUTS = [
+const FORM_INPUTS = Object.freeze([
   {
     label: "Título",
     id: "title",
@@ -22,7 +24,7 @@ const FORM_INPUTS = [
   {
     label: "Hora Inicio",
     id: "startTime",
-    type: "date",
+    type: "time",
     Component: Input,
     initialValue: "",
   },
@@ -33,7 +35,14 @@ const FORM_INPUTS = [
     Component: Input,
     initialValue: "",
   },
-];
+  {
+    label: "Color",
+    id: "color",
+    type: "color",
+    Component: Input,
+    initialValue: generateRandomHex(),
+  },
+]);
 
 const getFormInitialState = (formInputs) => {
   const values = {};
@@ -45,30 +54,84 @@ const getFormInitialState = (formInputs) => {
   return values;
 };
 
-export function AddEventModal({ isOpen, onClose }) {
+const getMinutesFromTime = (time) => {
+  const [hours, minutes] = time.split(":").map(Number);
+
+  return hours * 60 + minutes;
+};
+
+const validateFormState = (values) => {
+  const requiredFields = Object.keys(values);
+
+  for (const field of requiredFields) {
+    const fieldValue = values[field];
+
+    if (!fieldValue || !fieldValue.trim()) {
+      return "Todos los campos son obligatorios.";
+    }
+  }
+
+  const startInMinutes = getMinutesFromTime(values.startTime);
+  const endInMinutes = getMinutesFromTime(values.endTime);
+
+  if (endInMinutes < startInMinutes) {
+    return "La hora fin no puede ser menor que la hora inicio.";
+  }
+
+  return null;
+};
+
+export function AddEventModal({ isOpen, onClose, afterSubmit }) {
   const [formState, setFormState] = useState(getFormInitialState(FORM_INPUTS));
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const onCloseModalHandler = () => {
     onClose();
   };
 
-  const onSaveEventHandler = () => {};
+  const onSubmitSaveEventHandler = useCallback(
+    (event) => {
+      event.preventDefault();
 
-  const onChangeInputHandler = (event) => {
+      const validationError = validateFormState(formState);
+
+      if (validationError) {
+        setErrorMessage(validationError);
+        return;
+      }
+
+      saveEventService(formState)
+        .then(() => {
+          setErrorMessage(null);
+          setFormState(getFormInitialState(FORM_INPUTS));
+
+          if (afterSubmit) {
+            afterSubmit();
+          }
+        })
+        .catch((err) => {
+          console.log("err", err.message);
+
+          setErrorMessage(err.message);
+        });
+    },
+    [formState, afterSubmit],
+  );
+
+  console.log("error", errorMessage);
+
+  const onChangeInputHandler = useCallback((event) => {
     const { id, value } = event.target;
 
-    console.log(id, value);
-    
-
     setFormState((prevState) => ({
-      [id]: value,
       ...prevState,
+      [id]: value,
     }));
-  };
+  }, []);
 
   return (
     <Modal isOpen={isOpen} onClose={onCloseModalHandler}>
-      <form className="form">
+      <form className="form" onSubmit={onSubmitSaveEventHandler}>
         {FORM_INPUTS.map(
           // eslint-disable-next-line no-unused-vars
           ({ label, id, type, Component, initialValue: _, ...props }) => (
@@ -85,9 +148,12 @@ export function AddEventModal({ isOpen, onClose }) {
             </label>
           ),
         )}
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <div className="buttons">
-          <button onClick={onSaveEventHandler}>Guardar Evento</button>
-          <button onClick={onCloseModalHandler}>Cancelar</button>
+          <button type="submit">Guardar Evento</button>
+          <button onClick={onCloseModalHandler} type="button">
+            Cancelar
+          </button>
         </div>
       </form>
     </Modal>
