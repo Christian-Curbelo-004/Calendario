@@ -37,13 +37,6 @@ export default function Calendario({mes=[]}){
                     <div className="filtro-mes">
                         <h2 className='mes-filtrado'>{mesesPropiedades[mesFiltrado].nombre}</h2>
 
-                        {/* --- CAMBIO MÍNIMO AQUÍ --- */}
-                    <div style={{marginTop: '20px', padding: '20px', border: '1px solid #ccc'}}>
-                        <p>Mes seleccionado: {mesesPropiedades[mesFiltrado].nombre}</p>
-                        <p>Para ver los días del mes, necesitas implementar la grilla de días.</p>
-                    </div>
-                    {/* --------------------------- */}
-
                         {mesesFiltrados.map(item => (
                             <div key={item.id}>  </div>
                         ))}

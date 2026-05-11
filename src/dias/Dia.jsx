@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Dia.css"
 
 export default function Dia() {
 
@@ -33,7 +34,18 @@ export default function Dia() {
     return (
         <div className="dia">
 
-            <div className="controles-dia">
+            <div className="diaActual">
+                <h2>{dias[fecha.getDay()]}</h2>
+
+                <p> 
+                    {/* metodos nativos de.date */}
+                    {fecha.getDate()}/
+                    {fecha.getMonth() + 1}/
+                    {fecha.getFullYear()}
+                </p>
+            </div>
+
+            <div className="botones-dia">
                 <button onClick={diaAnterior}>
                     Día anterior
                 </button>
@@ -45,16 +57,6 @@ export default function Dia() {
                 <button onClick={diaSiguiente}>
                     Día siguiente
                 </button>
-            </div>
-
-            <div className="contenido-dia">
-                <h2>{dias[fecha.getDay()]}</h2>
-
-                <p>
-                    {fecha.getDate()}/
-                    {fecha.getMonth() + 1}/
-                    {fecha.getFullYear()}
-                </p>
             </div>
 
         </div>

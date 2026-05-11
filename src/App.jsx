@@ -5,10 +5,11 @@ import "./App.css";
 import { get } from "./services/api";
 import useModal from "./hooks/useModal";
 import { AddEventModal } from "./components/AddEventModal";
-//import Calendario from "./mes/Calendario.jsx";
+import Calendario from "./mes/Calendario.jsx";
 import meses from './mes/Meses.jsx'
 import Mes from './mes/Calendario.jsx' // archivo renombrado a calendario.jsx
 import Semana from './semana/Semana.jsx';
+import Dia from './dias/Dia.jsx'
 
 function AddEventContainerPlaceholder() {
   const { isOpen, open: openModal, close: closeModal } = useModal(false);
@@ -39,12 +40,21 @@ function AddEventContainerPlaceholder() {
 function App() {
   return (
     <section id='center'>
+
+      <div>
+        <AddEventContainerPlaceholder />
+      </div>
+
       <div className="App">
-      <h1>Calendario</h1>
-      {/* <Mes mes={mesesPropiedades} />  */}
-      <Calendario/>
-     {/*  <Semana />  */}
-    </div>
+
+        <h1>Calendario</h1>
+       {/* <Mes mes={mesesPropiedades} />  */}
+        <Calendario  />
+       {/*  <Semana />  */}
+        <Semana /> 
+        < Dia/> 
+
+      </div>
     </section>
     
   );
@@ -71,4 +81,8 @@ export default App;
       <section id="spacer"></section>
     </>
   
+     <div>
+         <AddEventContainerPlaceholder />
+        </div>
+   
 */

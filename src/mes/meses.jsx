@@ -14,4 +14,4 @@ export const mesesPropiedades = [ // fix: array con los meses y sus propiedades 
     { id: 11, nombre: 'Diciembre', mes: 11 }
 ];
 
-export default Meses;
+export default mesesPropiedades;
